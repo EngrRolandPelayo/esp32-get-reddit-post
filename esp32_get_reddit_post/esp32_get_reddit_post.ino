@@ -34,8 +34,7 @@ void setup() {
     lcd.clear();
     Serial.println(WiFi.localIP());
     String redditPost = getRedditFirstPost(SUBREDDIT);
-    Serial.println(redditPost);
-    printToLCD(redditPost);
+    //Serial.println(redditPost);
   }
 }
 
@@ -80,6 +79,20 @@ void printToLCD(String redditPost){
     }
     lcd.print(redditPost.charAt(i));
   }
+  delay(2000);
+  lcd.clear();
+  lcd.setCursor(0,0);
+  for(int j=80;j<redditPost.length();j++){
+    if(j==100){
+      lcd.setCursor(0,1);
+    }else if(j==120){
+      lcd.setCursor(0,2);
+    }else if(j==140){
+      lcd.setCursor(0,3);   
+    }
+    lcd.print(redditPost.charAt(j));
+  }
+  delay(2000);
 }
 
 // Routine for getting the first post from a subreddit
@@ -116,5 +129,6 @@ String getRedditFirstPost(String subReddit){
 }
 
 void loop() {
-  // insert time-based data fetching here
+  printToLCD(redditPost);
+  // or insert time-based data fetching here
 }
